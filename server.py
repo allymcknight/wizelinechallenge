@@ -95,7 +95,7 @@ def show_data():
 
     custom_count = len(urls)-created_count
 
-    return render_template('analytics.html', custom_count=custom_count, created_count=created_count)
+    return render_template('analytics.html', custom_count=custom_count, created_count=created_count, total=len(urls))
 
 @app.route('/all_urls')
 def show_all_urls():
