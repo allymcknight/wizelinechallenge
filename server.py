@@ -5,6 +5,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from model import connect_to_db, db, Url
 import os
+import validators
 
 app = Flask(__name__)
 
@@ -26,12 +27,20 @@ def create_new_url():
     """Creates a new shorter url and adds to db"""
 
     original_url = request.form.get('original_url')
+
+    #Checks to see if inputted url is valid
+    if not validators.url(original_url):
+        return "Please input valid URL"
+
+
+
     custom_url = request.form.get('custom_url')
 
     row = Url.query.filter_by(original_url=original_url).first()
 
     if row:
-        return "This URL is already in our system. This is the shortened URL:  " + row.shortened_url
+        flash("This URL is already in our system. This is the shortened URL:  ")
+        return render_template('result.html', shortened_url=row.shortened_url)
 
     if custom_url:
         custom_row = Url.query.filter_by(shortened_url=custom_url).first()
@@ -45,7 +54,7 @@ def create_new_url():
             new_shortened = Url(original_url=original_url, shortened_url=custom_url)
             db.session.add(new_shortened)
             db.session.commit()
-            return custom_url
+            return render_template('result.html', shortened_url=custom_url)
 
 
 
@@ -56,7 +65,8 @@ def create_new_url():
     new_shortened.shortened_url = hex(int(new_shortened.id))
     db.session.commit()
 
-    return new_shortened.shortened_url
+    return render_template('result.html', shortened_url=new_shortened.shortened_url)
+
 
 
 @app.route('/<short_url>')
@@ -72,6 +82,20 @@ def return_original_route(short_url):
         return render_template('not-here.html')
 
 
+@app.route('/analytics')
+def show_data():
+
+    urls = Url.query.all()
+
+    created_count = 0
+
+    for url in urls:
+        if url.shortened_url[:2]=="0x":
+            created_count +=1
+
+    custom_count = len(urls)-created_count
+
+    return render_template('analytics.html', custom_count=custom_count, created_count=created_count)
 
 @app.route('/all_urls')
 def show_all_urls():
@@ -80,6 +104,9 @@ def show_all_urls():
     urls = Url.query.all()
 
     return render_template('all_urls.html', urls=urls)
+
+
+
 
 if __name__ == "__main__":
 

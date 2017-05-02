@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<br><br>
+<span>Here is your shorter URL:</span>
+<span><a href="{{shortened_url}}"></a>{{shortened_url}}</span>
+
+<br><br>
+<span>Would you like another shortened url?</span>
+<a href="/">Click here</a>
+
+{% endblock %}
