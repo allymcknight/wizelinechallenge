@@ -10,14 +10,14 @@ import validators
 app = Flask(__name__)
 
 
-app.secret_key = "BLARGBLARG"
+app.secret_key = "iupon4si0870oiniOGUH$*"
 #avoid error message
 app.jinja_env.undefined = StrictUndefined
 
 
 @app.route('/')
 def index():
-    """Homepage."""
+    """Renders home/search page"""
 
     return render_template('home.html')
 
@@ -43,6 +43,9 @@ def create_new_url():
         return render_template('result.html', shortened_url=row.shortened_url)
 
     if custom_url:
+        if custom_url[:2] == "0x":
+            flash("Please choose another custom url.")
+            return redirect('/')
         custom_row = Url.query.filter_by(shortened_url=custom_url).first()
 
         if custom_row:

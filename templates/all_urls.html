@@ -1,13 +1,30 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<div class="container">
+  <h2>All URLs</h2>
+  <p>A table of all original and corresponding shorter URLs</p>            
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Original URL</th>
+        <th>Shortened URL</th>
+
+      </tr>
+    </thead>
+    <tbody>
+	{% for url in urls %}
+
+      <tr>
+        <td>{{url.original_url}}</td>
+        <td>{{url.shortened_url}}</td>
+
+      </tr>
+     {% endfor %}
+    </tbody>
+  </table>
+</div>
 
 
-{% for url in urls %}
-<br>
-{{url.original_url}}
-{{url.shortened_url}}
-<br>
-{% endfor %}
 
 {% endblock %}
