@@ -1,7 +1,6 @@
-body {
-    background: #ffffff url("https://www.startupgdl.com/app/themes/startupgdl/assets/images/logo-wizeline.svg") no-repeat right top;
-}
 
-span {
-	font-size: 35;
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+body{
+   font-family: serif, 'Open Sans';
 }
