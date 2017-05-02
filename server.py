@@ -31,12 +31,10 @@ def create_new_url():
     row = Url.query.filter_by(original_url=original_url).first()
 
     if row:
-        # import pdb; pdb.set_trace()
-        return row.shortened_url
+        return "This URL is already in our system. This is the shortened URL:  " + row.shortened_url
 
     if custom_url:
         custom_row = Url.query.filter_by(shortened_url=custom_url).first()
-        "HERE"
 
         if custom_row:
 
@@ -54,7 +52,6 @@ def create_new_url():
     new_shortened = Url(original_url=original_url)
     db.session.add(new_shortened)
     db.session.commit()
-    print "HERE AT BOTTOM"
 
     new_shortened.shortened_url = hex(int(new_shortened.id))
     db.session.commit()
@@ -74,11 +71,6 @@ def return_original_route(short_url):
     else:
         return render_template('not-here.html')
 
-
-
-
-   
-    return 
 
 
 @app.route('/all_urls')

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+
+{% for url in urls %}
+<br>
+{{url.original_url}}
+{{url.shortened_url}}
+<br>
+{% endfor %}
+
+{% endblock %}
