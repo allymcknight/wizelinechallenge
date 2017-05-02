@@ -30,7 +30,7 @@ def create_new_url():
 
     #Checks to see if inputted url is valid
     if not validators.url(original_url):
-        return "Please input valid URL"
+        return render_template('not_valid_url.html')
 
 
 
