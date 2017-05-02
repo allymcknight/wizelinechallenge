@@ -18,7 +18,6 @@ class Url(db.Model):
                         primary_key=True)
     original_url = db.Column(db.String(450), nullable=False)
     shortened_url = db.Column(db.String(400), nullable=True)
-    password = db.Column(db.String(64), nullable=True)
 
     def __repr__(self):
         """Provide helpful representation when printed."""

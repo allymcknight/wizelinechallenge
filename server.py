@@ -25,17 +25,18 @@ def index():
 def create_new_url():
     """Creates a new shorter url and adds to db"""
 
-    original_url = request.form.get('orig_url')
+    original_url = request.form.get('original_url')
     custom_url = request.form.get('custom_url')
 
     row = Url.query.filter_by(original_url=original_url).first()
 
     if row:
-        
+        # import pdb; pdb.set_trace()
         return row.shortened_url
 
     if custom_url:
         custom_row = Url.query.filter_by(shortened_url=custom_url).first()
+        "HERE"
 
         if custom_row:
 
@@ -52,6 +53,8 @@ def create_new_url():
 
     new_shortened = Url(original_url=original_url)
     db.session.add(new_shortened)
+    db.session.commit()
+    print "HERE AT BOTTOM"
 
     new_shortened.shortened_url = hex(int(new_shortened.id))
     db.session.commit()

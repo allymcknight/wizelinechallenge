@@ -2,14 +2,14 @@
 {% block content %}
 
 
-<form action='/new_url', METHOD='POST' >
+<form action='/new_url', METHOD='POST'>
   <div class="form-group">
-    <label for="formGroupExampleInput">Original URL</label>
-    <input type="text" class="form-control" id="original_url" placeholder="www.example.com" required>
+    <label>Original URL</label>
+    <input type="text" class="form-control" id="original_url" name="original_url" placeholder="www.example.com" required>
   </div>
   <div class="form-group">
-    <label for="formGroupExampleInput2">Place preferred custom shortened URL here. It is not required</label>
-    <input type="text" class="form-control" id="custom_url" placeholder="short_url_here">
+    <label>Place preferred custom shortened URL here. It is not required</label>
+    <input type="text" class="form-control" id="custom_url" name="custom_url" placeholder="short_url_here">
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
